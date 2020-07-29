@@ -1,46 +1,57 @@
 {
-  "private": true,
-  "description": "Modular framework to teach Puppeteer new tricks.",
+  "name": "puppeteer-extra-plugin-stealth",
+  "version": "2.4.14",
+  "description": "Stealth mode: Applies various techniques to make detection of headless puppeteer harder.",
+  "main": "index.js",
+  "typings": "index.d.ts",
   "repository": "berstend/puppeteer-extra",
+  "homepage": "https://github.com/berstend/puppeteer-extra/tree/master/packages/puppeteer-extra-plugin-stealth#readme",
   "author": "berstend",
   "license": "MIT",
-  "main": "packages/puppeteer-extra/index.js",
+  "scripts": {
+    "docs": "run-s docs-for-plugin docs-for-evasions types",
+    "docs-for-plugin": "documentation readme --quiet --shallow --github --markdown-theme transitivebs --readme-file readme.md --section API index.js",
+    "postdocs-for-plugin": "npx prettier --write readme.md",
+    "docs-for-evasions": "cd ./evasions && loop \"documentation readme --quiet --shallow --github --markdown-theme transitivebs --readme-file readme.md --section API index.js\"",
+    "postdocs-for-evasions": "cd ./evasions && loop \"npx prettier --write readme.md\"",
+    "lint": "eslint --ext .js .",
+    "test:js": "ava --concurrency 2 -v",
+    "test": "run-p test:js lint",
+    "test-ci": "run-s test",
+    "types": "npx --package typescript@3.7 tsc --emitDeclarationOnly --declaration --allowJs index.js"
+  },
   "engines": {
     "node": ">=8"
   },
-  "scripts": {
-    "bootstrap": "lerna bootstrap",
-    "build": "yarn lerna exec --concurrency 1 'yarn build; echo 0'",
-    "docs": "lerna run docs",
-    "test": "lerna run test --concurrency 1 --stream",
-    "test-ci": "lerna run test-ci --concurrency 1 --stream",
-    "prepare": "lerna run prepare",
-    "release": "lerna publish --npm-client npm"
-  },
-  "workspaces": [
-    "packages/*"
+  "keywords": [
+    "puppeteer",
+    "puppeteer-extra",
+    "puppeteer-extra-plugin",
+    "stealth",
+    "stealth-mode",
+    "detection-evasion",
+    "crawler",
+    "chrome",
+    "headless",
+    "pupeteer"
   ],
+  "ava": {
+    "files": [
+      "!test/util.js"
+    ]
+  },
   "devDependencies": {
-    "eslint": "^6.7.1",
-    "eslint-config-prettier": "^6.7.0",
-    "eslint-config-prettier-standard": "^3.0.1",
-    "eslint-config-standard": "^14.1.0",
-    "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-node": "^10.0.0",
-    "eslint-plugin-prettier": "^3.1.1",
-    "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-standard": "^4.0.1",
-    "lerna": "^3.19.0",
-    "lerna-update-wizard": "^0.17.5",
-    "prettier": "^1.19.1",
-    "prettier-config-standard": "^1.0.1"
+    "ava": "2.4.0",
+    "documentation-markdown-themes": "^12.1.5",
+    "fpcollect": "^1.0.4",
+    "fpscanner": "^0.1.5",
+    "loop": "^3.0.6",
+    "npm-run-all": "^4.1.5",
+    "puppeteer": "^2.0.0"
   },
-  "optionalDependencies": {
-    "fsevents": "^2.1.2"
+  "dependencies": {
+    "debug": "^4.1.1",
+    "puppeteer-extra-plugin": "^3.1.7"
   },
-  "resolutions": {
-    "**/fsevents": "^2.1.2"
-  },
-  "dependencies": {},
-  "version": "0.0.0"
+  "gitHead": "babb041828cab50c525e0b9aab02d58f73416ef3"
 }
